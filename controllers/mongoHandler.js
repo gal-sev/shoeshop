@@ -19,6 +19,7 @@ const db = client.db("ShoesShop");
 
 //TODO: check how much shoes are there and add to the stock instead of adding a new one
 //TODO: check the shoe object to make sure its ok?
+//TODO: remove the catches here and handle it in the server api file?
 export async function createShoe(shoe) {
     try {
       await client.connect();
