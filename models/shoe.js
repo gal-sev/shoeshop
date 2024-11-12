@@ -1,5 +1,5 @@
 class Shoe {
-    constructor(id, name, size, brand, shoeType, laces, price, stock) {
+    constructor(id, name, size, brand, shoeType, laces, price, stock, imgsrc) {
         id = id;
         name = name;
         size = size;
@@ -8,21 +8,6 @@ class Shoe {
         laces = laces;
         price = price;
         stock = stock; // remove later?
-    }
-
-    create () {
-
-    }
-
-    read () {
-        
-    }
-
-    update () {
-
-    }
-    
-    delete() {
-
+        imgsrc = imgsrc;
     }
 }
