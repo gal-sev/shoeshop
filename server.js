@@ -1,9 +1,11 @@
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
+import cors from "cors";
 import { createShoe, getShoes, updateShoe, deleteShoe } from './controllers/mongoHandler.js';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 dotenv.config();
@@ -37,7 +39,7 @@ const start = async () => {
         //TODO: ADD TRY CATCH TO STUFF HERE
     });
 
-    app.get('/read', async (req, res) => {
+    app.get('/getshoes', async (req, res) => {
         let shoes = await getShoes();
         res.status(200).send(shoes);
     });
