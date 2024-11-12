@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require('path');  // Node.js module to handle file paths
+require("dotenv").config();
 
 const app = express();
 
