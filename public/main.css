@@ -42,12 +42,14 @@ main {
     justify-content: center;
 }
 
-header P {
+.topNavA {
     font-size: 18px;
     font-weight: bold;
+    color: inherit;
+    text-decoration: none;
 }
 
-header P:hover {
+.topNavA:hover {
     border-bottom: 2px black solid;
 }
 

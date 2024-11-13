@@ -35,8 +35,8 @@ const start = async () => {
         //TODO: ADD TRY CATCH TO STUFF HERE
     });
 
-    app.get('/getshoes', async (req, res) => {
-        let shoes = await getShoes(req.body._id);
+    app.get('/getshoes/:_id', async (req, res) => {
+        let shoes = await getShoes(req.params._id);
         res.status(200).send(shoes);
     });
 

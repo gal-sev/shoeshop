@@ -40,10 +40,12 @@ export async function getShoes(id) {
         const collection = db.collection("Shoes");
 
         // get all shoes or one by id
-        const cursor = collection.find(id ? { _id: ObjectId.createFromHexString(id)} : {}); 
+        const cursor = collection.find(id != 'all' ? { _id: ObjectId.createFromHexString(id)} : {}); 
         const results = await cursor.toArray();
 
         return results;
+      } catch (e) {
+        console.log(e);
       } finally {
         await client.close();
       }

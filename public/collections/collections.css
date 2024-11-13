@@ -5,21 +5,6 @@
     justify-content: space-around;
 }
 
-.cartImg {
-    background-color: #f6f6f6;
-    border: 1px #bebebe solid;
-    padding: 4px;
-    border-radius: 5px;
-}
-
-.cartImg:hover {
-    background-color: rgb(224, 222, 222);
-    border: 1px black solid;
-    padding: 4px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
 .shoe {
     display: flex;
     flex-direction: column;

@@ -3,11 +3,15 @@ window.addEventListener('load', function() {
 });
 
 async function generateShoes() {
-    let res = await axios.get('http://localhost:8080/getshoes');
+    let res = await axios.get('http://localhost:8080/getshoes/all');
     const shoes = res.data;
     const itemsContainer = document.getElementById('itemsContainer');
 
     shoes.forEach(shoe => {
+    const gotoShoeAn = document.createElement('a');
+    gotoShoeAn.classList.add('gotoShoeAn');
+    gotoShoeAn.href = "../shoePage/shoePage.html?_id=" + shoe._id;
+    
     const shoeDiv = document.createElement('div');
     shoeDiv.classList.add('shoe');
 
@@ -29,7 +33,7 @@ async function generateShoes() {
     shoePrice.textContent = `${shoe.price}$`;
 
     const cartImg = document.createElement('img');
-    cartImg.classList.add('cartImg');
+    cartImg.classList.add('iconImg');
     cartImg.src = '../assets/shopping-cart.png';
     cartImg.width = 32;
     cartImg.height = 32;
@@ -39,7 +43,8 @@ async function generateShoes() {
     shoeDiv.appendChild(shoeImg);
     shoeDiv.appendChild(shoeTitle);
     shoeDiv.appendChild(priceContainer);
-    itemsContainer.appendChild(shoeDiv);
+    gotoShoeAn.appendChild(shoeDiv);
+    itemsContainer.appendChild(gotoShoeAn);
     });
 }
 
