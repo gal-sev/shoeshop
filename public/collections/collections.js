@@ -30,7 +30,7 @@ async function generateShoes() {
 
     const cartImg = document.createElement('img');
     cartImg.classList.add('cartImg');
-    cartImg.src = './assets/shopping-cart.png';
+    cartImg.src = '../assets/shopping-cart.png';
     cartImg.width = 32;
     cartImg.height = 32;
 
@@ -42,3 +42,5 @@ async function generateShoes() {
     itemsContainer.appendChild(shoeDiv);
     });
 }
+
+

@@ -17,11 +17,6 @@ const start = async () => {
       console.log(`Server is listening on port ${port}`)
     );
 
-    app.get('/', (req, res) => {
-        const filePath = path.resolve('public', 'index.html');
-        res.sendFile(filePath);
-    });
-
     app.post('/create', async (req, res) => {
         const bd = await req.body;
         const newShoe = {
@@ -32,7 +27,8 @@ const start = async () => {
             laces : bd.laces,
             price : bd.price,
             stock : bd.stock,
-            imgsrc : bd.imgsrc
+            imgsrc : bd.imgsrc,
+            description : bd.description
         }
         await createShoe(newShoe);
         res.status(200).send("created new shoe");
@@ -40,7 +36,7 @@ const start = async () => {
     });
 
     app.get('/getshoes', async (req, res) => {
-        let shoes = await getShoes();
+        let shoes = await getShoes(req.body._id);
         res.status(200).send(shoes);
     });
 
@@ -56,7 +52,8 @@ const start = async () => {
             laces : bd.laces,
             price : bd.price,
             stock : bd.stock,
-            imgsrc : bd.imgsrc
+            imgsrc : bd.imgsrc,
+            description : bd.description
         }
         await updateShoe(newShoe);
         res.status(200).send("updated shoe " + bd._id);

@@ -20,10 +20,27 @@ body {
     width: 70%;
 }
 
-header, main{
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
 header P {
     font-size: 18px;
@@ -32,28 +49,6 @@ header P {
 
 header P:hover {
     border-bottom: 2px black solid;
-}
-
-.priceContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.cartImg {
-    background-color: #f6f6f6;
-    border: 1px #bebebe solid;
-    padding: 4px;
-    border-radius: 5px;
-}
-
-.cartImg:hover {
-    background-color: rgb(224, 222, 222);
-    border: 1px black solid;
-    padding: 4px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 .topNav {
@@ -69,38 +64,17 @@ header P:hover {
     gap: 20px;
 }
 
-.shoe {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px gray solid;
-    text-align: center;
-    padding: 20px;
-    margin: 8px 0px;
-    transition: all 0.3s ease;
+.iconImg {
+    background-color: #f6f6f6;
+    border: 1px #bebebe solid;
+    padding: 4px;
+    border-radius: 5px;
 }
 
-.shoe:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.shoeImg {
-    border-radius: 8px;
-}
-
-.shoeH {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin: 10px 0;
-}
-
-.shoePrice {
-    font-size: 20px;
-    color: #007bffa4;
-    font-weight: bold;
+.iconImg:hover {
+    background-color: rgb(224, 222, 222);
+    border: 1px black solid;
+    padding: 4px;
+    border-radius: 5px;
+    cursor: pointer;
 }

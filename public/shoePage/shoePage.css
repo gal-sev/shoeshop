@@ -1,0 +1,59 @@
+.itemsContainer {
+    display: flex;
+    justify-self: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px rgba(98, 98, 98, 0.413) solid;
+    border-radius: 8px;
+    flex-wrap: wrap;
+    width: 60%;
+    min-width: min-content;
+    background-color: white;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.shoeImg {
+    border-radius: 20px;
+    border: 1px gray solid;
+    margin-right: 5%;
+}
+
+.shoeH {
+    text-align: center;
+    font-size: 26px;
+}
+
+.shoeDescription {
+    text-wrap: wrap;
+}
+
+.shoeDescription, .shoeSize, .shoeBrand, .shoeType, .shoeLaces, .shoeStock {
+    margin: 2px;
+}
+
+.priceContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 20px 0px;
+}
+
+.shoePrice {
+    font-size: 20px;
+    color: #007bffa4;
+    font-weight: bold;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+}

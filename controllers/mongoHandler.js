@@ -34,12 +34,13 @@ export async function createShoe(shoe) {
     }
 }
 
-export async function getShoes() {
+export async function getShoes(id) {
     try {
         await client.connect();
         const collection = db.collection("Shoes");
 
-        const cursor = collection.find({}); // get all shoes
+        // get all shoes or one by id
+        const cursor = collection.find(id ? { _id: ObjectId.createFromHexString(id)} : {}); 
         const results = await cursor.toArray();
 
         return results;
@@ -62,7 +63,9 @@ export async function updateShoe(shoe) {
                 laces: shoe.laces,
                 price: shoe.price,
                 stock: shoe.stock,
-                imgsrc: shoe.imgsrc
+                imgsrc: shoe.imgsrc,
+                description: shoe.description
+
             },
         };
         const result = await collection.updateOne({ _id: ObjectId.createFromHexString(shoe._id)}, shoeUpdates);
