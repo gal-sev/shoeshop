@@ -80,3 +80,17 @@ main {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.shoePrice {
+    font-size: 20px;
+    color: #007bffa4;
+    font-weight: bold;
+}
+
+.gotoShoeAn {
+    text-decoration: none;
+}
+
+.homePage {
+    
+}

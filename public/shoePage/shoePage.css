@@ -45,12 +45,6 @@
     margin: 20px 0px;
 }
 
-.shoePrice {
-    font-size: 20px;
-    color: #007bffa4;
-    font-weight: bold;
-}
-
 .buttonsContainer {
     display: flex;
     flex-direction: row;
@@ -58,3 +52,4 @@
     width: 100%;
     justify-content: space-evenly;
 }
+
