@@ -1,54 +1,69 @@
-export async function generateShoes() {
-    let res = await axios.get('http://localhost:8080/getshoes/all');
-    const shoes = res.data;
-    const itemsContainer = document.createElement('div');
-    itemsContainer.id = 'itemsContainer';
-    itemsContainer.classList.add('itemsContainer');
+export function generateShoes() {
+    $.ajax({
+        url: 'http://localhost:8080/getshoes/all',
+        method: 'GET',
+        success: function (shoes) {
+            const itemsContainer = $('<div>', {
+                id: 'itemsContainer',
+                class: 'itemsContainer'
+            });
 
-    shoes.forEach(shoe => {
-        const gotoShoeAn = document.createElement('a');
-        gotoShoeAn.classList.add('gotoShoeAn');
-        gotoShoeAn.href = "./main.html?page=shoePage&_id=" + shoe._id;
-        
-        const shoeDiv = document.createElement('div');
-        shoeDiv.classList.add('shoe');
+            if (shoes.length == 0 || !shoes) {
+                const noShoesTitle = $('<p>', {
+                    class: 'shoeHSmall',
+                    text: "Shoes not found"
+                });
+                itemsContainer.append(noShoesTitle);
+            } else {
+                shoes.forEach(shoe => {
+                    const gotoShoeAn = $('<a>', {
+                        class: 'gotoShoeAn',
+                        href: `./main.html?page=shoePage&_id=${shoe._id}`
+                    });
+    
+                    const shoeDiv = $('<div>', { class: 'shoe' });
+    
+                    const shoeImg = $('<img>', {
+                        class: 'shoeImg',
+                        src: shoe.imgsrc,
+                        width: 200,
+                        height: 200
+                    });
+    
+                    const shoeTitle = $('<p>', {
+                        class: 'shoeHSmall',
+                        text: shoe.name
+                    });
+    
+                    const priceContainer = $('<div>', { class: 'priceContainer' });
+    
+                    const shoePrice = $('<p>', {
+                        class: 'shoePrice',
+                        text: `${shoe.price}$`
+                    });
+    
+                    const cartImg = $('<img>', {
+                        class: 'iconImg',
+                        src: './assets/shopping-cart.png',
+                        width: 32,
+                        height: 32
+                    });
+    
+                    priceContainer.append(shoePrice, cartImg);
+                    shoeDiv.append(shoeImg, shoeTitle, priceContainer);
+                    gotoShoeAn.append(shoeDiv);
+                    itemsContainer.append(gotoShoeAn);
+                });
+            }
 
-        const shoeImg = document.createElement('img');
-        shoeImg.classList.add('shoeImg');
-        shoeImg.src = shoe.imgsrc;
-        shoeImg.width = 200;
-        shoeImg.height = 200;
-
-        const shoeTitle = document.createElement('p');
-        shoeTitle.classList.add('shoeH');
-        shoeTitle.textContent = shoe.name;
-
-        const priceContainer = document.createElement('div');
-        priceContainer.classList.add('priceContainer');
-
-        const shoePrice = document.createElement('p');
-        shoePrice.classList.add('shoePrice');
-        shoePrice.textContent = `${shoe.price}$`;
-
-        const cartImg = document.createElement('img');
-        cartImg.classList.add('iconImg');
-        cartImg.src = './assets/shopping-cart.png';
-        cartImg.width = 32;
-        cartImg.height = 32;
-
-        priceContainer.appendChild(shoePrice);
-        priceContainer.appendChild(cartImg);
-        shoeDiv.appendChild(shoeImg);
-        shoeDiv.appendChild(shoeTitle);
-        shoeDiv.appendChild(priceContainer);
-        gotoShoeAn.appendChild(shoeDiv);
-        itemsContainer.appendChild(gotoShoeAn);
-        const main = document.querySelector('main');
-        if (main) {
-            main.innerHTML = '';
-            main.appendChild(itemsContainer);
+            const main = $('main');
+            if (main) {
+                main.empty();
+                main.append(itemsContainer);
+            }
+        },
+        error: function (err) {
+            console.error('Error fetching shoes:', err);
         }
     });
 }
-
-

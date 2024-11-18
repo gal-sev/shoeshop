@@ -1,23 +1,62 @@
-export async function generateHomePage() {
-  const itemsContainer = document.createElement('div');
-  itemsContainer.id = 'itemsContainer';
-  itemsContainer.classList.add('itemsContainer');
+export function generateHomePage() {
+    $.ajax({
+        url: 'http://localhost:8080/getStocks',
+        method: 'GET',
+        success: function (stocks) {
+            const itemsContainer = $('<div>', {
+                id: 'itemsContainer',
+                class: 'itemsContainer'
+            });
 
-  const homeTitle = document.createElement('h4');
-  homeTitle.classList.add('Homepage');
-  homeTitle.innerText = "Homepage here..";
+            const col = $('<div>', { class: 'column' });
+            const row = $('<div>', { class: 'row' });
 
-  //TODO: insert some image / video
-  //TODO: insert statistics?...
+            const homeTitle = $('<h4>', {
+                class: 'homepage',
+                text: 'Total stock for each type of shoe:' 
+            });
 
-  itemsContainer.appendChild(homeTitle);
-  
-  const main = document.querySelector('main');
-  if (main) {
-    main.innerHTML = '';
-    main.appendChild(itemsContainer);
-  }
+            col.append(homeTitle, row);
+            itemsContainer.append(col);
+
+            if (stocks.length == 0 || !stocks) {
+                const noStocksTitle = $('<p>', {
+                    class: 'shoeHSmall',
+                    text: "0 stock, shoes not found"
+                });
+                itemsContainer.append(noStocksTitle);
+            } else {
+                stocks.forEach(stock => {
+                    const shoeDiv = $('<div>', { class: 'shoe' });
+    
+                    const stockTitle = $('<p>', {
+                        class: 'stockTitle',
+                        text: stock.shoeType
+                    });
+    
+                    const totalStock = $('<p>', {
+                        class: 'stockP',
+                        text: `Total stock: ${stock.totalStock}`
+                    });
+    
+                    const shoes = $('<p>', {
+                        class: 'stockP',
+                        text: `Shoes in stock: ${stock.shoes}`
+                    });
+                    
+                    shoeDiv.append(stockTitle, totalStock, shoes);
+                    row.append(shoeDiv);
+                });
+            }
+
+            const main = $('main');
+            if (main) {
+                main.empty();
+                main.append(itemsContainer);
+            }
+        },
+        error: function (err) {
+            console.error('Error fetching shoes:', err);
+        }
+    });
 }
-  
-
-

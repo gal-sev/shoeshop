@@ -1,7 +1,7 @@
 .itemsContainer {
     display: flex;
     justify-self: center;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 20px;
     border: 1px rgba(98, 98, 98, 0.413) solid;
@@ -12,21 +12,23 @@
     background-color: white;
 }
 
-.column {
+/* .column {
     display: flex;
     flex-direction: column;
     width: 40%;
-}
+} */
 
 .shoeImg {
     border-radius: 20px;
     border: 1px gray solid;
-    margin-right: 5%;
+    align-self: center;
 }
 
 .shoeH {
     text-align: center;
     font-size: 26px;
+    width: 100%;
+    margin: 0px 0px;
 }
 
 .shoeDescription {

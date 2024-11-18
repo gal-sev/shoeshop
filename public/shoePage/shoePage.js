@@ -1,116 +1,134 @@
 function createRow(titleText, innerText, className, idName) {
-  const row = document.createElement('div');
-  row.classList.add('row');
+    const row = $('<div>', { class: 'row' });
 
-  const title = document.createElement('p');
-  title.classList.add(className);
-  title.textContent = titleText;
+    const title = $('<p>', {
+        class: className,text: titleText
+    });
 
-  const inner = document.createElement('p');
-  inner.classList.add(className);
-  inner.id = idName;
-  inner.textContent = innerText;
+    const inner = $('<p>', {
+        class: className,
+        id: idName,
+        text: innerText
+    });
 
-  row.appendChild(title);
-  row.appendChild(inner);
-  return row;
+    row.append(title, inner);
+    return row;
 }
 
-export async function generateShoePage(_id) {
-  let res = await axios.get('http://localhost:8080/getshoes/' + _id); 
-  const shoe = res.data[0];
+export function generateShoePage(_id) {
+    $.ajax({
+        url: 'http://localhost:8080/getshoes/' + _id,
+        method: 'GET',
+        success: function (response) {
+            const shoe = response[0];
+            const itemsContainer = $('<div>', {
+                id: 'itemsContainer',
+                class: 'itemsContainer'
+            });
 
-  const itemsContainer = document.createElement('div');
-  itemsContainer.id = 'itemsContainer';
-  itemsContainer.classList.add('itemsContainer');
+            if (!shoe) {
+                const shoeNotFound = $('<p>', {
+                    class: 'shoeHSmall',
+                    text: "Shoe not found"
+                });
+                itemsContainer.append(shoeNotFound);
+            } else {
+                const shoeImg = $('<img>', {
+                    class: 'shoeImg',
+                    src: shoe.imgsrc,
+                    width: 400,
+                    height: 400
+                });
+                const columnDiv = $('<div>', { class: 'column' });
+                const shoeTitle = $('<h4>', {
+                    class: 'shoeH',
+                    text: shoe.name
+                });
+                
+                // Using the createRow function above to generate each row
+                const descriptionRow = createRow('description: ', shoe.description, 'shoeDescription', 'shoeDescription');
+                const sizeRow = createRow('size: ', shoe.size, 'shoeSize', 'shoeSize');
+                const brandRow = createRow('brand: ', shoe.brand, 'shoeBrand', 'shoeBrand');
+                const typeRow = createRow('shoe type: ', shoe.shoeType, 'shoeType', 'shoeType');
+                const lacesRow = createRow('laces: ', shoe.laces ? 'included' : 'not included', 'shoeLaces', 'shoeLaces');
+                const stockRow = createRow('stock: ', shoe.stock, 'shoeStock', 'shoeStock');
+                
+                const priceContainer = $('<div>', { class: 'priceContainer' });
+                const shoePrice = $('<p>', {
+                    class: 'shoePrice',
+                    text: shoe.price + "$"
+                });
+                priceContainer.append(shoePrice);
+    
+                const buttonsContainer = $('<div>', { class: 'buttonsContainer' });
+                const icons = ['shopping-cart', 'edit', 'trash'];
+                icons.forEach(icon => {
+                    const iconImg = $('<img>', {
+                        class: 'iconImg',
+                        src: `./assets/${icon}.png`,
+                        width: 32,
+                        height: 32
+                    });
+                    switch (icon) {
+                        case 'shopping-cart':
+                            iconImg.on('click', function () {
+                                // TODO: Implement shopping cart logic
+                                alert("Added to shopping cart event (wip)");
+                            });
+                            break;
+                        case 'edit':
+                            iconImg.on('click', function () {
+                                // TODO: Implement edit logic
+                                alert("Edit event (wip)");
+                            });
+                            break;
+                        case 'trash':
+                            iconImg.on('click', function () {
+                                $.ajax({
+                                    url: 'http://localhost:8080/delete/',
+                                    method: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({ _id: _id }),
+                                    success: function () {
+                                        // Move back to collections page after deletion
+                                        window.location.href = "./main.html?page=collections";
+                                    },
+                                    error: function (err) {
+                                        console.error('Error deleting shoe:', err);
+                                    }
+                                });
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                    buttonsContainer.append(iconImg);
+                });
+                
+                columnDiv.append(
+                    shoeTitle,
+                    shoeImg,
+                    descriptionRow,
+                    sizeRow,
+                    brandRow,
+                    typeRow,
+                    lacesRow,
+                    stockRow,
+                    priceContainer,
+                    buttonsContainer
+                );
+    
+                itemsContainer.append(columnDiv);
+            }
 
-  const rowDiv = document.createElement('div');
-  rowDiv.classList.add('row');
-
-  const shoeImg = document.createElement('img');
-  shoeImg.classList.add('shoeImg');
-  shoeImg.src = shoe.imgsrc;
-  shoeImg.width = 400;
-  shoeImg.height = 400;
-
-  const columnDiv = document.createElement('div');
-  columnDiv.classList.add('column');
-
-  const shoeTitle = document.createElement('h4');
-  shoeTitle.classList.add('shoeH');
-  shoeTitle.textContent = shoe.name;
-
-  const descriptionRow = createRow('description: ', shoe.description, 'shoeDescription', 'shoeDescription');
-  const sizeRow = createRow('size: ', shoe.size, 'shoeSize', 'shoeSize');
-  const brandRow = createRow('brand: ', shoe.brand, 'shoeBrand', 'shoeBrand');
-  const typeRow = createRow('shoe type: ', shoe.shoeType, 'shoeType', 'shoeType');
-  const lacesRow = createRow('laces: ', shoe.laces ? 'included' : 'not included', 'shoeLaces', 'shoeLaces');
-  const stockRow = createRow('stock: ', shoe.stock, 'shoeStock', 'shoeStock');
-
-  const priceContainer = document.createElement('div');
-  priceContainer.classList.add('priceContainer');
-
-  const shoePrice = document.createElement('p');
-  shoePrice.classList.add('shoePrice');
-  shoePrice.textContent = shoe.price + "$";
-  priceContainer.appendChild(shoePrice);
-
-  const buttonsContainer = document.createElement('div');
-  buttonsContainer.classList.add('buttonsContainer');
-
-  const icons = ['shopping-cart', 'edit', 'trash'];
-  icons.forEach(icon => {
-    const iconImg = document.createElement('img');
-    iconImg.classList.add('iconImg');
-    iconImg.src = `./assets/${icon}.png`;
-    iconImg.width = 32;
-    iconImg.height = 32;
-    buttonsContainer.appendChild(iconImg);
-
-    switch (icon) {
-      case 'shopping-cart':
-        iconImg.addEventListener('click', async function() {
-          //TODO: call the add to shopping cart event
-          window.alert("Added to shopping cart event (wip)");
-        });
-        break;
-      case 'edit':
-        iconImg.addEventListener('click', async function() {
-          //TODO: call edit event
-          window.alert("edit event (wip)");
-        });
-        break;
-      case 'trash':
-        iconImg.addEventListener('click', async function() {
-          let res = await axios.post('http://localhost:8080/delete/', { _id: _id});
-          const resData = res.data;
-          // right now not doing anything with the result, show it to user later?
-          window.location.href = "../home/home.html?page=collections";
-        });
-        break;
-      default:
-        break;
-    }
-  });
-
-  columnDiv.appendChild(shoeTitle);
-  columnDiv.appendChild(descriptionRow);
-  columnDiv.appendChild(sizeRow);
-  columnDiv.appendChild(brandRow);
-  columnDiv.appendChild(typeRow);
-  columnDiv.appendChild(lacesRow);
-  columnDiv.appendChild(stockRow);
-  columnDiv.appendChild(priceContainer);
-  columnDiv.appendChild(buttonsContainer);
-  rowDiv.appendChild(shoeImg);
-  rowDiv.appendChild(columnDiv);
-  itemsContainer.appendChild(rowDiv);
-  const main = document.querySelector('main');
-  if (main) {
-    main.innerHTML = '';
-    main.appendChild(itemsContainer);
-  }
+            const main = $('main');
+            if (main) {
+                main.empty();
+                main.append(itemsContainer);
+            }
+        },
+        error: function (err) {
+            console.error('Error fetching shoe:', err);
+        }
+    });
 }
-  
-
-

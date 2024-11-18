@@ -1,6 +1,32 @@
+@import url('./collections/collections.css');
+@import url('./shoePage/shoePage.css');
+@font-face {
+    /* got it from https://fonts.google.com/specimen/Doto */
+    font-family: 'Doto';
+    src: 
+        url('./assets/Doto/Doto-Black.ttf') format('truetype'),
+        url('./assets/Doto/Doto-Bold.ttf') format('truetype'),
+        url('./assets/Doto/Doto-ExtraBold.ttf') format('truetype'),
+        url('./assets/Doto/Doto-ExtraLight.ttf') format('truetype'),
+        url('./assets/Doto/Doto-Light.ttf') format('truetype'),
+        url('./assets/Doto/Doto-Medium.ttf') format('truetype'),
+        url('./assets/Doto/Doto-Regular.ttf') format('truetype'),
+        url('./assets/Doto/Doto-SemiBold.ttf') format('truetype'),
+        url('./assets/Doto/Doto-Thin.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-Black.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-Bold.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-ExtraBold.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-ExtraLight.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-Light.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-Medium.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-Regular.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-SemiBold.ttf') format('truetype'),
+        url('./assets/Doto/Doto_Rounded-Thin.ttf') format('truetype'),
+}
+
 body {
     margin: 0px;
-    font-family: Arial, sans-serif;
+    font-family: 'Doto', sans-serif;
     background-color: #f8f8f8df;
     display: flex;
     flex-direction: column;
@@ -8,28 +34,19 @@ body {
     align-items: center;
 }
 
-.itemsContainer {
-    display: flex;
-    justify-self: center;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 20px;
-    border: 1px rgba(98, 98, 98, 0.413) solid;
-    border-radius: 8px;
-    flex-wrap: wrap;
-    width: 70%;
-}
-
 .row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+    gap: 8px;
 }
 
 .column {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    gap: 8px;
 }
 
 header {
@@ -92,5 +109,15 @@ main {
 }
 
 .homePage {
-    
+    text-align: center;
+}
+
+.stockTitle {
+    font-size: 18px;
+    text-align: center;
+}
+
+.stockP {
+    font-size: 14px;
+    text-align: left;
 }

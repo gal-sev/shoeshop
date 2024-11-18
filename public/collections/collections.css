@@ -24,11 +24,12 @@
     transition: all 0.3s ease;
 }
 
-.shoeImg {
+/* .shoeImg {
     border-radius: 8px;
-}
+    align-self: center;
+} */
 
-.shoeH {
+.shoeHSmall {
     font-size: 18px;
     font-weight: bold;
     color: #333;
